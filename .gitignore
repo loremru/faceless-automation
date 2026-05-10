@@ -1,0 +1,12 @@
+# secrets
+.env
+.env.local
+
+# macOS
+.DS_Store
+
+# editor / local
+.claude/settings.local.json
+
+# node
+node_modules/

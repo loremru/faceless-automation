@@ -1,0 +1,88 @@
+{
+  "id": 2,
+  "platform": "instagram",
+  "size": "1080x1350",
+  "pillar": "Pain & Recognition",
+  "hook": "Your thumb knows the way before your brain does.",
+  "arc": "Recognition → Loop mechanic → Stat → Reframe → Product → CTA",
+  "slides": [
+    {
+      "n": 1,
+      "role": "Hook / Recognition",
+      "headline": "YOUR THUMB KNOWS THE WAY",
+      "sub": "before your brain does.",
+      "emphasis": { "word": "KNOWS", "color": "lime-soft" },
+      "text": true,
+      "asset": {
+        "template": "The Glow",
+        "file": "assets/slide-1.png",
+        "params": { "model": "recraftv3", "style": "digital_illustration", "substyle": "grain", "size": "1024x1280" }
+      }
+    },
+    {
+      "n": 2,
+      "role": "Loop mechanic",
+      "headline": "TAP. SCROLL. TAP. SCROLL.",
+      "sub": "muscle memory wrote the script.",
+      "text": true,
+      "asset": {
+        "template": "Hooded Silhouette",
+        "file": "assets/slide-2.png",
+        "params": { "model": "recraftv3", "style": "digital_illustration", "substyle": "grain", "size": "1024x1280" }
+      }
+    },
+    {
+      "n": 3,
+      "role": "Stat",
+      "headline": "2,617",
+      "sub": "screen touches per day. that's once every 33 seconds you're awake.",
+      "text": true,
+      "asset": {
+        "template": "Counter (CSS-only)",
+        "file": null,
+        "note": "Recraft repeatedly hallucinated literal objects (rope, ball, stairs) for the abstract Counter plate; fell back to pure CSS radial-glow background."
+      }
+    },
+    {
+      "n": 4,
+      "role": "Reframe",
+      "headline": "WILLPOWER LOSES TO REFLEX.",
+      "sub": "you can't out-think a reflex. you have to interrupt it.",
+      "emphasis": { "word": "REFLEX", "color": "lime-soft" },
+      "text": true,
+      "asset": {
+        "template": "The Lifter",
+        "file": "assets/slide-4.png",
+        "params": { "model": "recraftv3", "style": "digital_illustration", "substyle": "grain", "size": "1024x1280" }
+      }
+    },
+    {
+      "n": 5,
+      "role": "Product",
+      "headline": "10 SQUATS = 5 MIN.",
+      "sub": "pay with reps. teach your thumb a new path.",
+      "emphasis": { "word": "SQUATS", "color": "lime-soft" },
+      "text": true,
+      "asset": {
+        "template": "Door / Threshold",
+        "file": "assets/slide-5.png",
+        "params": { "model": "recraftv3", "style": "digital_illustration", "substyle": "grain", "size": "1024x1280" }
+      }
+    },
+    {
+      "n": 6,
+      "role": "CTA",
+      "headline": "EARN YOUR SCREEN.",
+      "sub": "save this if your thumb is faster than you.",
+      "emphasis": { "word": "SCREEN", "color": "lime-soft" },
+      "text": true,
+      "asset": {
+        "template": "The Glow",
+        "file": "assets/slide-6.png",
+        "params": { "model": "recraftv3", "style": "digital_illustration", "substyle": "grain", "size": "1024x1280" }
+      }
+    }
+  ],
+  "notes": "Recraft v3 repeatedly produced off-palette warm tones (orange/blue/red) and occasional unwanted literal objects. CSS bg filter (saturate 0.55, hue-rotate 40deg, brightness 0.55) + heavy dark gradient overlay neutralize this and pull final composites toward the brand black-and-lime palette.",
+  "created_at": "2026-05-09"
+}

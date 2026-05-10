@@ -1,0 +1,164 @@
+:root {
+  --bg-deep: #080A06;
+  --bg-soft: #0F1310;
+  --bg-pure: #000000;
+  --lime-core: #B0E821;
+  --lime-soft: #CDF561;
+  --lime-pale: #E3FB9B;
+  --amber: #FBBF24;
+  --text-pure: #FFFFFF;
+  --text-warm: #F8FAF5;
+  --text-mute: #9CA38F;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: var(--bg-deep); }
+
+.slide {
+  position: relative;
+  overflow: hidden;
+  color: var(--text-warm);
+  font-family: "Outfit", system-ui, sans-serif;
+}
+.slide--ig { width: 1080px; height: 1350px; }
+
+.bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Hard dark+lime tint to pull off-brand image colors back to brand. */
+.tint {
+  position: absolute; inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at center, rgba(176,232,33,0.10) 0%, rgba(8,10,6,0.0) 55%),
+    linear-gradient(180deg,
+      rgba(8,10,6,0.55) 0%,
+      rgba(8,10,6,0.30) 35%,
+      rgba(8,10,6,0.78) 78%,
+      rgba(8,10,6,0.96) 100%);
+  mix-blend-mode: normal;
+}
+
+/* Strong saturation/hue suppression on the bg image for off-brand frames. */
+.bg--strong-tint { filter: saturate(0.35) hue-rotate(40deg) brightness(0.85); }
+
+.copy {
+  position: relative; z-index: 2;
+  padding: 96px 80px 200px 80px;
+  display: flex; flex-direction: column; gap: 28px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.copy--top {
+  justify-content: flex-start;
+  padding: 120px 80px 80px 80px;
+}
+
+.copy--center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px;
+}
+
+.eyebrow {
+  font-family: "Outfit", sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lime-core);
+}
+
+.headline {
+  font-family: "Changa One", "Impact", sans-serif;
+  font-weight: 400;
+  font-size: 132px;
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--text-pure);
+}
+.headline--sm { font-size: 108px; }
+.headline--lg { font-size: 156px; }
+
+.headline .emph { color: var(--lime-soft); }
+.headline .emph--amber { color: var(--amber); }
+
+.sub {
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.25;
+  color: var(--text-warm);
+  max-width: 880px;
+}
+.sub--mute { color: var(--text-mute); }
+
+.stat-num {
+  font-family: "Outfit", sans-serif;
+  font-weight: 800;
+  font-size: 520px;
+  line-height: 0.85;
+  color: var(--lime-core);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+
+/* Pure-CSS dark scanline backdrop for slide 3 (no Recraft image). */
+.scanlines {
+  position: absolute; inset: 0;
+  background-color: var(--bg-pure);
+  background-image:
+    radial-gradient(ellipse at center, rgba(176,232,33,0.18) 0%, rgba(0,0,0,0.0) 55%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(176,232,33,0.06) 0px,
+      rgba(176,232,33,0.06) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  z-index: 0;
+}
+
+.brand {
+  position: absolute; left: 80px; bottom: 60px; z-index: 3;
+  display: flex; align-items: center; gap: 14px;
+  font-family: "Outfit", sans-serif; font-weight: 700;
+  font-size: 26px; letter-spacing: 0.22em;
+  color: var(--text-warm);
+  text-transform: uppercase;
+}
+.brand .dot {
+  width: 14px; height: 14px;
+  background: var(--lime-core);
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(176,232,33,0.6);
+}
+
+.page-num {
+  position: absolute; right: 80px; bottom: 60px; z-index: 3;
+  font-family: "Outfit", sans-serif; font-weight: 600;
+  font-size: 24px; letter-spacing: 0.18em;
+  color: var(--text-mute);
+}
+
+/* Bottom CTA chip on the last slide */
+.cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 22px 36px;
+  background: var(--lime-core);
+  color: var(--bg-deep);
+  font-family: "Outfit", sans-serif; font-weight: 800;
+  font-size: 32px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  margin-top: 16px;
+  align-self: flex-start;
+}

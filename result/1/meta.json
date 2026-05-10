@@ -1,0 +1,95 @@
+{
+  "id": 1,
+  "platform": "instagram",
+  "size": "1080x1350",
+  "pillar": "Pain & Recognition",
+  "hook": "The app you opened \"just for a sec\" is still open.",
+  "arc": "Recognition -> Loop -> Cost (stat) -> Reframe -> Product -> CTA",
+  "slide_count": 6,
+  "recraft_defaults": {
+    "model": "recraftv3",
+    "style": "digital_illustration",
+    "substyle": "grain",
+    "size": "1024x1280",
+    "note": "Skill spec calls for recraftv4, but the MCP tool enum exposes only recraftv3/recraftv2 — used recraftv3."
+  },
+  "slides": [
+    {
+      "n": 1,
+      "role": "Hook / Recognition",
+      "headline": "THE APP YOU OPENED \"JUST FOR A SEC\" IS STILL OPEN.",
+      "emphasis": { "word": "STILL", "color": "lime-soft" },
+      "text": true,
+      "asset": {
+        "template": "Door / Threshold",
+        "file": "assets/slide-1.png",
+        "source_webp": "/Users/loremru/.mcp-recraft-server/4965e199-f341-44d3-ae9c-221eb7f08958.webp"
+      }
+    },
+    {
+      "n": 2,
+      "role": "Loop description",
+      "headline": "ONE SCROLL BECAME FORTY MINUTES.",
+      "sub": "again.",
+      "emphasis": { "word": "FORTY", "color": "lime-soft" },
+      "text": true,
+      "asset": {
+        "template": "Hooded Silhouette",
+        "file": "assets/slide-2.png",
+        "source_webp": "/Users/loremru/.mcp-recraft-server/275e21b0-139a-4faf-81cf-d7fbfa2619b1.webp"
+      }
+    },
+    {
+      "n": 3,
+      "role": "Cost stat",
+      "headline_num": "144",
+      "sub": "phone pickups per day. that's once every 6 minutes you're awake.",
+      "text": true,
+      "asset": {
+        "template": "Counter (pure CSS — no Recraft image worked on-brand)",
+        "file": null,
+        "note": "Background composed via .scanlines CSS rule on pure black with lime CRT scan-lines and a soft radial lime glow."
+      }
+    },
+    {
+      "n": 4,
+      "role": "Reframe",
+      "headline": "WILLPOWER LOSES. FRICTION WINS.",
+      "emphasis": { "word": "FRICTION", "color": "lime-soft" },
+      "text": true,
+      "asset": {
+        "template": "The Lifter",
+        "file": "assets/slide-4.png",
+        "source_webp": "/Users/loremru/.mcp-recraft-server/4ee1805c-705d-424e-a1d8-80f6a1dfaf4c.webp",
+        "note": "Recraft pulled blue/peach tones; HTML applies saturate(0.35) hue-rotate + dark gradient tint to drag back to brand."
+      }
+    },
+    {
+      "n": 5,
+      "role": "Product",
+      "headline": "10 SQUATS = 5 MIN ACCESS.",
+      "sub": "pay with reps. or stay locked.",
+      "emphasis": { "word": "=", "color": "lime-soft" },
+      "text": true,
+      "asset": {
+        "template": "The Glow",
+        "file": "assets/slide-5.png",
+        "source_webp": "/Users/loremru/.mcp-recraft-server/123b0946-4cdf-47ee-a9d6-1c4b5d529d3b.webp"
+      }
+    },
+    {
+      "n": 6,
+      "role": "CTA",
+      "headline": "EARN YOUR SCREEN.",
+      "sub": "Time Squats — on the App Store.",
+      "emphasis": { "word": "SCREEN", "color": "lime-soft" },
+      "text": true,
+      "asset": {
+        "template": "Door / Threshold (open variant)",
+        "file": "assets/slide-6.png",
+        "source_webp": "/Users/loremru/.mcp-recraft-server/b9ceeb5c-9609-4918-8c8f-3f92d1a54f6c.webp"
+      }
+    }
+  ],
+  "created_at": "2026-05-07"
+}

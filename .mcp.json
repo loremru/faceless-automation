@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "recraft": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@recraft-ai/mcp-recraft-server@latest"
+      ],
+      "env": {
+        "RECRAFT_API_KEY": "${RECRAFT_API_KEY}"
+      }
+    }
+  }
+}
