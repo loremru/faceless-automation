@@ -1,0 +1,85 @@
+{
+  "id": 4,
+  "brand": "time-squats-female",
+  "style": "realistic-faceless",
+  "provider": "openrouter",
+  "platform": "instagram",
+  "size": "1080x1350",
+  "pillar": "Numbers carry meaning + State, not cheer",
+  "hook": "247 squats this week.",
+  "color_override": "Warm paper-toned palette (per themes/time-squats-female/THEME.md). STYLE PREAMBLE color/lighting sections replaced with warm linen/cream/taupe descriptors; cool/acid-lime descriptors removed.",
+  "slides": [
+    {
+      "n": 1,
+      "headline": "247 squats this week.",
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "template": "The Lifter (forearms / lower-thigh squat hold, head outside frame)",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with warm-color override from themes/time-squats-female/THEME.md)",
+        "openrouter_id": "gen-1778416604-SIUt7cxDS9DQuu19K9wg"
+      }
+    },
+    {
+      "n": 2,
+      "headline": "Earned 4h 23min.",
+      "sub": "not scrolled.",
+      "emphasis": { "word": "4h 23min", "color": "accent" },
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "template": "The Counter (phone face-down + ceramic mug on linen)",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with warm-color override)",
+        "openrouter_id": "gen-1778416607-4nSXsN6F3Vxs12LN018X"
+      }
+    },
+    {
+      "n": 3,
+      "headline": "Streak: 12 days.",
+      "emphasis": { "word": "12 days", "color": "accent" },
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "template": "The Hooded Subject (back-of-head, oat hoodie)",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with warm-color override)",
+        "openrouter_id": "gen-1778416608-mZC5sImCWv0JVrgNaYUO"
+      }
+    },
+    {
+      "n": 4,
+      "headline": "5 squats.",
+      "sub": "Then Instagram.",
+      "emphasis": { "word": "5 squats", "color": "accent" },
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "template": "The Lifter (canvas sneakers crop, low angle)",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with warm-color override)",
+        "openrouter_id": "gen-1778416610-YqQe58oDPW8TYogaHAnj"
+      }
+    },
+    {
+      "n": 5,
+      "headline": "move first. then scroll.",
+      "emphasis": { "word": "scroll", "color": "accent" },
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "template": "The Doorway (empty, soft warm light)",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with warm-color override)",
+        "openrouter_id": "gen-1778416612-H1tbfr0WENk28imvv4fz"
+      }
+    }
+  ],
+  "created_at": "2026-05-10"
+}

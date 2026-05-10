@@ -45,7 +45,15 @@ Exit code:
 
 ```
 1) Запиши финальный prompt в /tmp/<run-id>-slide-K.prompt.txt
-2) Запиши negative-блок (если есть) в /tmp/<run-id>-slide-K.neg.txt
+   Структура:
+     <STYLE PREAMBLE из styles/<id>/STYLE.md — pure rendering recipe>
+     ---
+     SCENE & COMPOSITION:
+     <environment / crop / pose / mood из brief.md → Slide K → Visual variables>
+2) Запиши negative-блок в /tmp/<run-id>-slide-K.neg.txt
+   Содержит: <NEGATIVE из STYLE.md — только не-стиль> + <brief-level negative, если задан>.
+   Subject-anti-terms (faceless / no people / male body) сюда не идут — это уровень брифа
+   или будущего subject-слоя.
 3) Bash:  node scripts/openrouter-image.mjs --model <slug> --prompt-file <prompt> --negative-file <neg> --size <WxH> --out result/<N>/assets/slide-K.png
 4) Распарси одну строку JSON со stdout. Если ok=false или exit≠0 — стоп.
 ```
@@ -74,3 +82,44 @@ Exit code:
 - **Модель не возвращает image-part** (текстовый-only ответ) → exit 4, попробуй другой `--model` (image-output capable).
 - **Rate limit (429)** → одна повторная попытка с задержкой, дальше — стоп.
 - **Размер на выходе сильно меньше запрошенного** → пересоздать с явным указанием размера в самом prompt-файле.
+
+## Декор (PNG-ассеты с прозрачным фоном)
+
+Второй сценарий вызова того же скрипта: генерация мелких декор-иконок (звёздочки, стрелки, галочки, бейджи, callout-облачка) для HTML-слайдов. Используется когда скилл просит декор (см. `SKILL.md → Декор (PNG-ассеты)`).
+
+### Параметры
+
+Те же флаги: `--model / --prompt-file / --negative-file / --size / --out`. Особенности:
+
+- `--size 1024x1024` — квадрат, иконке геометрия слайда не важна.
+- `--out result/<N>/assets/decor-<slug>.png`.
+- `--model "$OPENROUTER_DECOR_MODEL"` — **отдельная** переменная в `.env` (например, `google/gemini-2.5-flash-image-preview` / nano-banana). Сознательно не используем `OPENROUTER_IMAGE_MODEL`: декор обычно требует другую модель, хорошо рисующую sticker-style icons на прозрачном фоне. Если `OPENROUTER_DECOR_MODEL` не задан — стоп, попроси пользователя заполнить `.env`.
+
+### Конвенции промпта
+
+- В `--prompt-file` финальный текст обязан содержать: `isolated icon, fully transparent background, single object, centered, no scene, no text, no letters, no shadow, no frame`. Без этого модель часто всё равно рисует подложку.
+- В `--negative-file` (опционально, но рекомендуется): `background, scene, text, letters, words, gradient, drop shadow, frame, border, photo studio, paper texture`.
+- Стиль рисования (линия / заливка / текстура / цвет) согласуй с активным `STYLE.md` — чтобы декор визуально не выпадал из карусели. Цвета описываем словами, не HEX.
+
+### Output
+
+Скрипт пишет PNG по `--out` и печатает обычную stdout-строку (см. формат выше). Дальше скилл проверяет, прозрачен ли фон, и при необходимости вызывает `mcp__recraft__remove_background` (см. `providers/recraft.md → Remove background для декора`).
+
+### Запись в `meta.json`
+
+В элементе `meta.json.slides[k].decor[i]`:
+
+```json
+{
+  "slug": "<kebab-slug>",
+  "provider": "openrouter",
+  "model": "<slug, который ушёл в --model>",
+  "params": { "size": "1024x1024" },
+  "prompt": "<полный prompt из --prompt-file>",
+  "negative": "<содержимое --negative-file, если был>",
+  "openrouter_id": "gen-...",
+  "local_path": "assets/decor-<slug>.png",
+  "bg_removed": false,
+  "bg_removed_url": null
+}
+```

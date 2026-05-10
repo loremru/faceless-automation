@@ -103,7 +103,7 @@ const userText =
 
 const body = {
   model,
-  modalities: ["image", "text"],
+  modalities: ["image"],
   messages: [{ role: "user", content: [{ type: "text", text: userText }] }],
 };
 

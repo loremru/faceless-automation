@@ -1,0 +1,95 @@
+{
+  "id": 1,
+  "combo_id": "time-squats-female__realistic__native-social",
+  "brand": "time-squats-female",
+  "style": "realistic",
+  "theme": "native-social",
+  "provider": "openrouter",
+  "platform": "instagram",
+  "size": "1080x1350",
+  "pillar": "Friction beats willpower",
+  "topic": {
+    "topic_id": "3am-locked",
+    "pillar": "Friction beats willpower",
+    "hook_shape": "time-of-day-scene",
+    "hook_text": "It's 3am. Instagram is locked.",
+    "nouns": ["night", "lock", "phone"],
+    "angle": "night-scroll moment turned into a state-fact; not a fight, the phone is already locked"
+  },
+  "novelty_check": {
+    "candidates": [
+      { "topic_id": "earned-12-minutes", "pillar": "State, not cheer", "hook_shape": "receipt-stat", "hook_text": "Earned 12 minutes.", "nouns": ["minute", "earn", "unlock"], "similar_to_n": null },
+      { "topic_id": "3am-locked", "pillar": "Friction beats willpower", "hook_shape": "time-of-day-scene", "hook_text": "It's 3am. Instagram is locked.", "nouns": ["night", "lock", "phone"], "similar_to_n": null },
+      { "topic_id": "five-for-five", "pillar": "Friction beats willpower", "hook_shape": "metaphor", "hook_text": "5 squats. 5 minutes.", "nouns": ["squat", "minute", "trade"], "similar_to_n": null },
+      { "topic_id": "quiet-streak-12", "pillar": "Quiet streak", "hook_shape": "stat-first", "hook_text": "Streak: 12 days.", "nouns": ["streak", "day", "quiet"], "similar_to_n": null },
+      { "topic_id": "willpower-myth", "pillar": "Friction beats willpower", "hook_shape": "myth-bust", "hook_text": "Willpower doesn't unlock apps.", "nouns": ["willpower", "friction", "body"], "similar_to_n": null }
+    ],
+    "chosen": "3am-locked",
+    "flagged": []
+  },
+  "hook": "It's 3am. Instagram is locked.",
+  "slide_roles": ["Hook", "Recognition", "Mechanic", "State", "CTA"],
+  "slides": [
+    {
+      "n": 1, "role": "Hook", "text": true,
+      "headline": "it's 3am.", "sub": "Instagram is locked.",
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic/STYLE.md",
+        "openrouter_id": "gen-1778422077-IKzWB00nOLCdySNrelx0",
+        "local_path": "assets/slide-1.png"
+      }
+    },
+    {
+      "n": 2, "role": "Recognition", "text": true,
+      "headline": "again.", "sub": "You opened it 4 times this hour.",
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic/STYLE.md",
+        "openrouter_id": "gen-1778422079-CtXnxVgDxHlHtY5AqgrO",
+        "local_path": "assets/slide-2.png"
+      }
+    },
+    {
+      "n": 3, "role": "Mechanic", "text": true,
+      "headline": "5 squats.", "sub": "to unlock 5 minutes.",
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic/STYLE.md",
+        "regenerated": true,
+        "local_path": "assets/slide-3.png"
+      }
+    },
+    {
+      "n": 4, "role": "State", "text": true,
+      "headline": "slept 7h 12min.", "sub": "Didn't open the phone until 8am.",
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic/STYLE.md",
+        "openrouter_id": "gen-1778422083-rh1ssCYkEuEAf9Q1lCgi",
+        "local_path": "assets/slide-4.png"
+      }
+    },
+    {
+      "n": 5, "role": "CTA", "text": true,
+      "headline": "move first.", "sub": "then scroll.",
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic/STYLE.md",
+        "regenerated": true,
+        "local_path": "assets/slide-5.png"
+      }
+    }
+  ],
+  "created_at": "2026-05-10"
+}

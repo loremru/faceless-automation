@@ -1,0 +1,106 @@
+{
+  "id": 3,
+  "brand": "time-squats-female",
+  "style": "realistic-faceless",
+  "provider": "openrouter",
+  "platform": "instagram",
+  "size": "1080x1350",
+  "pillar": "Recognition → Mechanic → Receipt",
+  "hook": "move first. then scroll.",
+  "arc": "Hook → Recognition → Mechanic → Proof → CTA",
+  "style_overrides": {
+    "environment": "quiet minimal interior, warm window light, plain plaster, pale wood / cream linen — NOT brutalist gym, NOT athletic wear, NO hoodie anywhere",
+    "color": "warm earth (ecru/oat/taupe/charcoal) with optional muted coral-amber natural warmth — NOT acid lime, NOT cold green",
+    "lighting": "single warm window source, soft falloff allowed",
+    "rationale": "BRAND.md voice and visual rules call for natural-light minimalism, not gym-brutalism. Faceless rule + documentary discipline kept; gym setting and hooded motif removed entirely."
+  },
+  "slides": [
+    {
+      "n": 1,
+      "role": "Hook",
+      "headline": "move first.",
+      "sub": "then scroll.",
+      "emphasis": { "word": "first", "color": "accent-core" },
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "template": "Hand crop on linen (no figure)",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with brief.md female overrides)",
+        "file": "assets/slide-1.png"
+      }
+    },
+    {
+      "n": 2,
+      "role": "Recognition",
+      "headline": "you opened it 47 times.",
+      "sub": "your thumb already knows the way.",
+      "emphasis": { "word": "47", "color": "accent-core" },
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "template": "Back-of-head with phone in lap",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with brief.md female overrides)",
+        "file": "assets/slide-2.png"
+      }
+    },
+    {
+      "n": 3,
+      "role": "Mechanic",
+      "headline": "5 squats.",
+      "sub": "then 5 minutes of instagram.",
+      "emphasis": { "word": "5 squats", "color": "accent-core" },
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "template": "Bodyweight squat, chin-cropped, no hoodie",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with brief.md female overrides)",
+        "file": "assets/slide-3.png"
+      }
+    },
+    {
+      "n": 4,
+      "role": "Receipt",
+      "headline": "247 squats this week.",
+      "sub": "earned 1h 12m back.",
+      "emphasis": { "word": "247", "color": "accent-core", "font": "JetBrains Mono" },
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "template": "Cream linen weave, no figure",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with brief.md female overrides)",
+        "file": "assets/slide-4.png"
+      }
+    },
+    {
+      "n": 5,
+      "role": "CTA",
+      "headline": "time squats.",
+      "sub": "block the apps that own your day. unlock with movement.",
+      "emphasis": { "word": "time squats", "color": "accent-core" },
+      "text": true,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "template": "Empty doorway with warm late sun",
+        "params": { "size": "1024x1280" },
+        "preamble_source": "styles/realistic-faceless/STYLE.md (with brief.md female overrides)",
+        "file": "assets/slide-5.png"
+      }
+    }
+  ],
+  "created_at": "2026-05-10",
+  "fixes_applied": [
+    "scripts/openrouter-image.mjs modalities: ['image','text'] → ['image'] so flux-2-pro accepts the call",
+    "themes/time-squats-female/THEME.md google_fonts_url: dropped Fraunces opsz axis (Chromium font-load bug); now uses ital,wght axis only",
+    "All five slide prompts rewritten to remove hoodie / gym motifs entirely; negative list expanded with hoodie/hood/gym-bro tokens",
+    "fonts.check verified Fraunces, Inter, JetBrains Mono all resolve before screenshot"
+  ]
+}

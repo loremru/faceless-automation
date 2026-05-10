@@ -5,6 +5,11 @@ fonts:
   display: Changa One
   body: Outfit
 google_fonts_url: https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap
+contrast_strategy: dark-on-dark
+text_scrim:
+  mode: panel
+  strength: 0.88
+  color_token: --bg-deep
 ---
 
 # Time Squats — Theme (palette + typography)
@@ -60,6 +65,10 @@ Google Fonts URL — в frontmatter (`google_fonts_url`).
 - **Shadow:** pure ink black, жёсткий край, без soft falloff.
 - **Optional accent:** мелкие штрихи warm amber yellow (rim, дозированно). Никаких purple/blue/pink/orange/teal/brown/pastel.
 
+## Contrast strategy
+
+`dark-on-dark`: фотографический фон тёмный, текст светлый. Большие надписи на голом фото читаются — но только если за текстом есть достаточно тёмная плоскость. Когда фото содержит светлые зоны (рим-свет, lime glow), текст без scrim проваливается. Поэтому skill обязан класть `.copy-panel` под каждый текстовый блок с тёмной заливкой 88% прозрачности и тонкой lime-окантовкой. Accent-lime используется **только** внутри panel (или как мелкий маркер — точка в `.brand`, hairline). Crucial: lime никогда не идёт крупным заголовком на голом фоне.
+
 ## CSS preset
 
 ```css
@@ -74,5 +83,16 @@ Google Fonts URL — в frontmatter (`google_fonts_url`).
   --text-pure: #FFFFFF;
   --text-warm: #F8FAF5;
   --text-mute: #9CA38F;
+  --border-soft: rgba(176, 232, 33, 0.18);
+}
+
+.copy-panel {
+  background: color-mix(in srgb, var(--bg-deep) 88%, transparent);
+  padding: 32px 40px;
+  border-radius: 18px;
+  border: 1px solid var(--border-soft);
+  align-self: flex-start;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 ```

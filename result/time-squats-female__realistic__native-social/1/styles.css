@@ -1,0 +1,81 @@
+:root {
+  --fg:           #FFFFFF;
+  --fg-2:         #E8E8E8;
+  --scrim:        #000000;
+  --scrim-alpha:  0.85;
+
+  --bg:           #0B0B0B;
+  --surface:      #161616;
+  --border-soft:  rgba(255,255,255,0.12);
+
+  --display: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --sans:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); }
+
+.slide { position: relative; overflow: hidden; color: var(--fg);
+         font-family: var(--sans); }
+.slide--ig     { width: 1080px; height: 1350px; }
+.slide--tiktok { width: 1080px; height: 1920px; }
+
+.bg { position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0; }
+
+.copy-stack {
+  position: absolute;
+  z-index: 2;
+  left: 60px;
+  right: 60px;
+  bottom: 96px;
+}
+
+/* alternate placement — top-left, used when bottom is too dark/cluttered */
+.copy-stack--top {
+  bottom: auto;
+  top: 90px;
+}
+
+.row { display: block; margin-bottom: 22px; }
+.row:last-child { margin-bottom: 0; }
+.row > .copy-panel { display: inline; }
+
+.copy-panel {
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background: rgba(0, 0, 0, var(--scrim-alpha));
+  color: var(--fg);
+  padding: 6px 18px;
+  border-radius: 4px;
+}
+
+.copy-hero {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 102px;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.copy-sub {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+}
+
+/* tiny attribution handle, bottom-right */
+.handle {
+  position: absolute;
+  z-index: 3;
+  right: 32px;
+  bottom: 32px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+.handle .copy-panel { padding: 5px 12px; }
