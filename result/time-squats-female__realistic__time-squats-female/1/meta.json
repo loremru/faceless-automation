@@ -1,0 +1,149 @@
+{
+  "id": 1,
+  "combo_id": "time-squats-female__realistic__time-squats-female",
+  "brand": "time-squats-female",
+  "style": "realistic",
+  "theme": "time-squats-female",
+  "provider": "openrouter",
+  "platform": "instagram",
+  "size": "1080x1350",
+  "pillar": "State, not cheer",
+  "topic": {
+    "topic_id": "monday-morning-locked",
+    "pillar": "State, not cheer",
+    "hook_shape": "time-of-day-scene",
+    "hook_text": "monday. 7:42am. instagram locked.",
+    "nouns": ["monday", "lock", "instagram"],
+    "angle": "an ordinary morning moment — no drama, no celebration. just the locked screen and the daylight."
+  },
+  "novelty_check": {
+    "candidates": [
+      { "topic_id": "weekly-receipt-247", "pillar": "Numbers carry meaning", "hook_shape": "stat-first", "hook_text": "247 reps this week.", "nouns": ["reps", "week", "receipt"], "similar_to_n": null },
+      { "topic_id": "five-squats-five-minutes", "pillar": "Friction beats willpower", "hook_shape": "metaphor", "hook_text": "5 squats. 5 minutes.", "nouns": ["squats", "minutes", "trade"], "similar_to_n": null },
+      { "topic_id": "monday-morning-locked", "pillar": "State, not cheer", "hook_shape": "time-of-day-scene", "hook_text": "monday. 7:42am. instagram locked.", "nouns": ["monday", "lock", "instagram"], "similar_to_n": null },
+      { "topic_id": "streak-broken-restart", "pillar": "Quiet streak", "hook_shape": "confession", "hook_text": "streak broken. start again.", "nouns": ["streak", "restart", "miss"], "similar_to_n": null },
+      { "topic_id": "below-parallel-check", "pillar": "Numbers carry meaning", "hook_shape": "receipt-stat", "hook_text": "below parallel ✓", "nouns": ["form", "depth", "check"], "similar_to_n": null }
+    ],
+    "chosen": "monday-morning-locked",
+    "flagged": []
+  },
+  "hook": "monday. 7:42am. instagram. locked.",
+  "slide_roles": ["Hook", "Recognition", "Mechanic", "Proof", "Receipt", "CTA"],
+  "slides": [
+    {
+      "n": 1,
+      "role": "Hook",
+      "text": true,
+      "headline": "monday.",
+      "sub": "7:42 am · instagram. locked.",
+      "bbox": { "x": 600, "y": 130, "w": 380, "h": 280 },
+      "uses_accent": false,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "prompt_file": "/tmp/tsf-r-1-slide-1.prompt.txt",
+        "negative_file": "/tmp/tsf-r-1-neg.txt",
+        "openrouter_id": "gen-1778483586-9LDwzi9Vz2gXOqcf69oX",
+        "local_path": "assets/slide-1.png",
+        "preamble_source": "styles/realistic/STYLE.md"
+      }
+    },
+    {
+      "n": 2,
+      "role": "Recognition",
+      "text": true,
+      "headline": "the reach was automatic.",
+      "sub": "thumb already moving before you woke up.",
+      "bbox": { "x": 110, "y": 880, "w": 720, "h": 230 },
+      "uses_accent": false,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "prompt_file": "/tmp/tsf-r-1-slide-2.prompt.txt",
+        "negative_file": "/tmp/tsf-r-1-neg.txt",
+        "openrouter_id": "gen-1778483614-5b11dstAOC1zecSeckIO",
+        "local_path": "assets/slide-2.png",
+        "preamble_source": "styles/realistic/STYLE.md"
+      }
+    },
+    {
+      "n": 3,
+      "role": "Mechanic",
+      "text": true,
+      "headline": "5 squats. 5 minutes.",
+      "sub": "the trade.",
+      "bbox": { "x": 110, "y": 130, "w": 720, "h": 230 },
+      "uses_accent": true,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "prompt_file": "/tmp/tsf-r-1-slide-3.prompt.txt",
+        "negative_file": "/tmp/tsf-r-1-neg.txt",
+        "openrouter_id": "gen-1778483642-xQCjVgkXyzI2AoU2ITXp",
+        "local_path": "assets/slide-3.png",
+        "preamble_source": "styles/realistic/STYLE.md"
+      }
+    },
+    {
+      "n": 4,
+      "role": "Proof",
+      "text": true,
+      "headline": "12 minutes earned.",
+      "sub": "before coffee.",
+      "bbox": { "x": 110, "y": 130, "w": 720, "h": 220 },
+      "uses_accent": true,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "prompt_file": "/tmp/tsf-r-1-slide-4.prompt.txt",
+        "negative_file": "/tmp/tsf-r-1-neg.txt",
+        "openrouter_id": "gen-1778483665-AEpcC7UtG2TGmlkq0v7m",
+        "local_path": "assets/slide-4.png",
+        "preamble_source": "styles/realistic/STYLE.md"
+      }
+    },
+    {
+      "n": 5,
+      "role": "Receipt",
+      "text": true,
+      "headline": "247 reps this week.",
+      "sub": "active streak: 12 days.",
+      "bbox": { "x": 280, "y": 140, "w": 520, "h": 460 },
+      "uses_accent": false,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "prompt_file": "/tmp/tsf-r-1-slide-5.prompt.txt",
+        "negative_file": "/tmp/tsf-r-1-neg.txt",
+        "openrouter_id": "gen-1778483693-eqvmeDoZnC3vv4hMkg33",
+        "local_path": "assets/slide-5.png",
+        "preamble_source": "styles/realistic/STYLE.md"
+      }
+    },
+    {
+      "n": 6,
+      "role": "CTA",
+      "text": true,
+      "headline": "move first.",
+      "sub": "then scroll.",
+      "bbox": { "x": 280, "y": 140, "w": 520, "h": 280 },
+      "uses_accent": false,
+      "asset": {
+        "provider": "openrouter",
+        "model": "black-forest-labs/flux.2-pro",
+        "params": { "size": "1024x1280" },
+        "prompt_file": "/tmp/tsf-r-1-slide-6.prompt.txt",
+        "negative_file": "/tmp/tsf-r-1-neg.txt",
+        "openrouter_id": "gen-1778483715-2qHQMctZ33W4xrVNKau6",
+        "local_path": "assets/slide-6.png",
+        "preamble_source": "styles/realistic/STYLE.md"
+      }
+    }
+  ],
+  "created_at": "2026-05-11"
+}

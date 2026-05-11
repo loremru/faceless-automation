@@ -104,7 +104,7 @@ carousel/
 ### Step 1 — загрузить специф
 
 1. Прочитай `brands/<brand>/BRAND.md` целиком. Из frontmatter возьми `theme`.
-2. Прочитай `themes/<theme>/THEME.md` — источник палитры, Google Fonts URL, **`contrast_strategy`**, **`text_scrim`**, и `.copy-panel` CSS preset.
+2. Прочитай `themes/<theme>/THEME.md` — источник палитры, Google Fonts URL, **`contrast_strategy`**, **`text_scrim`**, **CSS preset** (включает overlay/wash + editorial typography классы), и **`per_slide_schema`** (frontmatter — какие поля под текст ожидает эта тема и какие из них опциональны).
 3. Прочитай `styles/<style>/STYLE.md` целиком. Файл должен быть **pure rendering recipe** (camera/light/grade/grain) — без описания субъекта, окружения, или композиционных мотивов. Если в STYLE.md встречаются subject rules / environment / motifs — это баг: композиция/сцена живут в `brief.md`, а не в стиле.
 4. Прочитай `providers/<default_provider>.md` — runbook на image-генерацию. Если пользователь явно попросил другой провайдер — читай тот.
 5. Прочитай `CLAUDE.md` если ещё не читал в этой сессии.
@@ -155,7 +155,7 @@ carousel/
 
 1. `has_text` (true/false). Slide 1 (Hook) — почти всегда `true`.
 2. **Visual scene** — конкретное описание сцены (environment, subject crop, pose, mood, props). Per-carousel композиция, живёт ТОЛЬКО в brief.md (см. CLAUDE.md → Layer isolation MUST §3). STYLE.md описывает только рендеринг (камера/свет/grade/grain), не сцену.
-3. Если `has_text=true`: `headline`, `sub`, опциональный `emphasis: {word, color_token}` (color_token — словесное имя из THEME, не HEX).
+3. Если `has_text=true`: заполняй **per-slide поля из `per_slide_schema` активной THEME** (frontmatter THEME.md). Skill **не** перечисляет имена полей сам — они theme-specific (одна тема ожидает eyebrow+headline+sub+rule, другая ожидает только headline+stat, etc.). Какие поля обязательные / опциональные / какие inline-spans разрешены внутри headline — всё в `per_slide_schema`.
 4. `decor[]` — массив декор-элементов (≤3) **только** для слайдов с акцентом на число / шаги / чек-лист / стрелку до→после. Для каждого: `slug` (kebab-case), `purpose` (зачем), `placement` (rough position на холсте). Правила генерации — раздел «Декор» выше.
 
 Записываем всё это в brief.md под каждым слайдом — см. шаблон ниже (поле `Decor:`).
@@ -255,9 +255,7 @@ ls -d result/<combo_id>/[0-9]*/ 2>/dev/null | sed "s|result/<combo_id>/||;s|/||"
 
 ### Slide 1 — <role>
 - **Has text:** yes/no
-- **Headline:** "..."  (если text=yes)
-- **Sub:** "..."
-- **Emphasis:** word="OWNS", color=accent  (опционально; accent выводится **только** внутри `.copy-panel`)
+- **Theme fields:** заполни поля из `per_slide_schema` активной `themes/<theme>/THEME.md` (frontmatter). Например для editorial light темы это может быть `eyebrow / headline / sub / rule / layout / uses_accent`; для impact dark темы — другой набор. Skill не диктует имена — читает из THEME.
 - **Visual variables (для image-промпта):** environment=..., subject crop / pose=..., mood=..., palette hint=...
   *(STYLE.md задаёт только recipe рендеринга — что именно в кадре пишется здесь.)*
 - **Decor:** [{slug: star-burst, purpose: emphasize stat, placement: top-right}]  (опционально, ≤3)
@@ -276,7 +274,9 @@ ls -d result/<combo_id>/[0-9]*/ 2>/dev/null | sed "s|result/<combo_id>/||;s|/||"
 
 Каждый `slide-K.html` — самодостаточный документ ровно нужного размера. Никакого responsive — фиксированные пиксели.
 
-### Шаблон `slide-K.html`
+**Конкретный набор классов внутри `<section class="copy">` и inline-spans внутри headline — theme-specific.** Skill читает их из CSS preset активного THEME и из `per_slide_schema` (frontmatter). Не зашивай конкретные имена (`.eyebrow`, `.headline em`, `.accent`, `.dot`, `.rule`, `.stat`) в шаблоне skill'а — они могут отличаться от темы к теме.
+
+### Минимальный скелет `slide-K.html`
 
 ```html
 <!doctype html>
@@ -291,98 +291,39 @@ ls -d result/<combo_id>/[0-9]*/ 2>/dev/null | sed "s|result/<combo_id>/||;s|/||"
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="slide slide--tiktok">  <!-- или slide--ig -->
+  <main class="slide slide--ig">  <!-- или slide--tiktok -->
     <img class="bg" src="assets/slide-K.png" alt="" />
+    <!-- Wash overlay из активного THEME (опции: .overlay (default bottom),
+         .overlay--top, при необходимости — другие модификаторы темы). -->
     <div class="overlay"></div>
+    <!-- Содержимое .copy собирается из per_slide_schema активной THEME.
+         Имена классов и порядок — из CSS preset темы, не из skill'а. -->
     <section class="copy">
-      <!-- .copy-panel — обязательная обёртка для тем с
-           contrast_strategy ∈ {light-on-light, dark-on-dark}.
-           Accent-цвет используется ТОЛЬКО внутри panel. -->
-      <div class="copy-panel">
-        <h1 class="headline">
-          Earn your <span class="emph">screen</span>.
-        </h1>
-        <p class="sub">Friction beats willpower.</p>
-      </div>
+      <!-- … theme-specific блоки (eyebrow / headline / rule / sub / stat / meta …) … -->
     </section>
     <footer class="brand">
       <span class="mark"></span>
-      <span class="wordmark">Time Squats</span>
+      <span class="wordmark"><!-- wordmark по правилам BRAND voice + THEME casing --></span>
     </footer>
   </main>
 </body>
 </html>
 ```
 
-Правила:
+Правила (theme-agnostic):
 - Картинка от провайдера — фон (`<img class="bg">`), `object-fit: cover`.
 - Текст — отдельный слой поверх. **Никакого текста внутри сгенерированной картинки** (это в STYLE.md negative-блок зашито).
-- Для тем с `contrast_strategy ∈ {light-on-light, dark-on-dark}` каждая группа `headline+sub` обязана быть обёрнута в `.copy-panel` (CSS preset берётся из активного `THEME.md`). Это даёт стабильный читаемый scrim под текстом.
-- **Accent-цвет применяется ТОЛЬКО внутри `.copy-panel`** или как мелкий маркер (точка-маркер бренда, hairline-разделитель). Никогда — крупным заголовком на голом фоне (это даст ratio < 3:1).
-- Максимум один accent-акцент на заголовок (одно слово или короткая фраза).
+- Wash overlay (`.overlay` / `.overlay--top` / другой вариант из CSS preset темы) обеспечивает читаемый scrim под текстовой зоной. Никаких блочных «панелей» под текстом — wash + правильный `--fg` темы.
+- Accent-цвет (`--accent` / `--lime-core` / etc.) применяется **только** на 1-2 ключевых словах внутри wash-зоны (inline-span, имя класса определяется CSS preset темы). Никогда крупным заголовком целиком, никогда на голом фоне без wash.
 - Headline ≤ 12 слов, body ≤ 20 слов суммарно.
-- Min headline 60pt (≈ 96–160px на холсте 1080).
-- В `meta.json.slides[k]` после рендера записывай `bbox: { x, y, w, h }` финальной `.copy-panel` (в координатах 1080×1350 / 1080×1920) — этим питается `scripts/contrast-check.mjs`. Если bbox не записан, контраст-чек упадёт обратно на эвристику нижней половины слайда.
+- В `meta.json.slides[k]` пиши per-slide поля согласно `per_slide_schema` активной THEME (см. секцию meta.json ниже). Если skill знает явный bbox текстовой зоны (например `.copy-panel` или конкретный блок) — добавь `bbox: { x, y, w, h }` для точного контраст-чека; иначе скрипт пройдёт по эвристике.
+- Если в headline есть accent-span — выставь `slides[k].uses_accent: true` в meta.json (этим питается `scripts/contrast-check.mjs`).
 
 ### `styles.css` — общий для карусели
 
-CSS-переменные палитры/шрифтов **и `.copy-panel` preset** — из активного `themes/<theme>/THEME.md → CSS preset`. Скилл копирует preset дословно в `result/<combo_id>/<N>/styles.css` и добавляет общие правила слайда (размер холста, `.bg`, `.overlay`, `.copy`, `.headline`, `.sub`, `.brand`). Никаких HEX-кодов в коде скилла — только токены из THEME.
+Skill **копирует CSS preset активной `themes/<theme>/THEME.md` дословно** в `result/<combo_id>/<N>/styles.css`. Preset уже содержит всё необходимое: tokens (`:root`), базовые правила (`.slide`, `.bg`, `.overlay`, `.copy`, `.brand`) и theme-specific typography классы. Никаких HEX-кодов и никаких имён классов в коде skill'а — только токены и preset из THEME.
 
-Пример (theme `time-squats`, dark-on-dark):
-
-```css
-:root {
-  /* tokens из themes/time-squats/THEME.md */
-  --bg-deep: #080A06;
-  --bg-soft: #0F1310;
-  --bg-pure: #000000;
-  --lime-core: #B0E821;
-  --lime-soft: #CDF561;
-  --lime-pale: #E3FB9B;
-  --amber: #FBBF24;
-  --text-pure: #FFFFFF;
-  --text-warm: #F8FAF5;
-  --text-mute: #9CA38F;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { background: var(--bg-deep); }
-
-.slide { position: relative; overflow: hidden; color: var(--text-warm);
-         font-family: "Outfit", system-ui, sans-serif; }
-.slide--tiktok { width: 1080px; height: 1920px; }
-.slide--ig     { width: 1080px; height: 1350px; }
-
-.bg { position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; z-index: 0; }
-.overlay { position: absolute; inset: 0;
-           background: linear-gradient(180deg,
-             rgba(8,10,6,0.15) 0%, rgba(8,10,6,0.55) 60%, rgba(8,10,6,0.85) 100%);
-           z-index: 1; }
-
-.copy { position: relative; z-index: 2; padding: 120px 96px;
-        display: flex; flex-direction: column; gap: 32px;
-        height: 100%; justify-content: flex-end; }
-.headline { font-family: "Changa One", "Impact", sans-serif; font-weight: 400;
-            font-size: 160px; line-height: 0.92; letter-spacing: -0.01em;
-            text-transform: uppercase; color: var(--text-pure); }
-.headline .emph { color: var(--lime-soft); }
-.headline .emph--amber { color: var(--amber); }
-.sub { font-family: "Outfit", sans-serif; font-weight: 500;
-       font-size: 44px; line-height: 1.25; color: var(--text-mute);
-       max-width: 820px; }
-.brand { position: absolute; left: 96px; bottom: 64px; z-index: 3;
-         display: flex; align-items: center; gap: 16px;
-         font-family: "Outfit", sans-serif; font-weight: 700;
-         font-size: 32px; letter-spacing: 0.18em; color: var(--text-warm); }
-.brand .dot { font-size: 28px; }
-
-.stat-num { font-family: "Outfit", sans-serif; font-weight: 800;
-            font-size: 280px; line-height: 0.9; color: var(--lime-core);
-            font-variant-numeric: tabular-nums; }
-```
-
-Если активен **другой** theme — переменные `--bg-*`, `--lime-*` (или `--accent-*`), `--text-*` и `font-family` подбираются из его `THEME.md`. Имена переменных можно держать семантическими (`accent-core` / `accent-soft`) даже если у нового theme не lime.
+Если skill понадобится добавить специфичные для платформы / карусели дополнения (например `.slide--tiktok` отсутствует в preset) — добавлять снизу после блока theme preset, не модифицируя сам preset.
 
 ## Ассеты от провайдера
 
@@ -478,12 +419,18 @@ negative, если есть>
   "slides": [
     {
       "n": 1,
-      "headline": "YOUR PHONE OWNS YOU",
-      "emphasis": { "word": "OWNS", "color": "lime-soft" },
       "text": true,
+      "role": "Hook",
+      "layout": "bottom",
+      "uses_accent": true,
+      "theme_fields": {
+        "// note": "поля из per_slide_schema активной THEME (имена и набор зависят от темы)",
+        "headline": "<headline string, может содержать inline-spans разрешённые темой>",
+        "sub": "<sub string>"
+      },
+      "bbox": { "x": 88, "y": 880, "w": 904, "h": 280 },
       "asset": {
         "provider": "recraft",
-        "template": "Hooded Silhouette",
         "prompt": "<full assembled prompt>",
         "negative_prompt": "<full negative>",
         "params": { "model": "<slug>", "style": "digital_illustration", "substyle": "grain", "size": "1024x1820" },
@@ -517,7 +464,7 @@ negative, если есть>
    ```
 5. `cp result/<combo_id>/<N>/caption.md result/<combo_id>/<N>/inst/caption.txt`.
 6. Проверка размера: `sips -g pixelWidth -g pixelHeight result/<combo_id>/<N>/inst/01.png` → ровно `1080 × 1350` (или `1080 × 1920`).
-7. **Контраст-чек (обязательный):** `node scripts/contrast-check.mjs result/<combo_id>/<N>`. Скрипт читает `meta.json` (per-slide `bbox` если есть, иначе нижне-половинная эвристика), считает WCAG-ratio фон vs `--fg` и `--accent`. Если общий `ok: false` — вернись к `styles.css`, усиль scrim (`.copy-panel` strength или color-mix percentage), пере-рендери, повтори чек. Не публикуй inst/ без `ok: true`.
+7. **Контраст-чек (обязательный):** `node scripts/contrast-check.mjs result/<combo_id>/<N>`. Скрипт читает `meta.json` (per-slide `bbox` если есть, иначе нижне-половинная эвристика), считает WCAG-ratio фон vs `--fg` темы. Если у слайда `uses_accent: true` — дополнительно проверяет ratio_accent ≥ 3.0; иначе accent-check пропускается. Если общий `ok: false` — вернись к `styles.css`, усиль wash (peak/mid opacity в `.overlay`) или сдвинь текстовую зону, пере-рендери, повтори чек. Не публикуй inst/ без `ok: true`.
 
 ### Если у слайда нет HTML (`text: false`)
 
@@ -540,12 +487,12 @@ negative, если есть>
 7. **N + папки.** Определить локальный N внутри `result/<combo_id>/` (следующая свободная) и создать `result/<combo_id>/<N>/assets/` и `result/<combo_id>/<N>/inst/`.
 8. **Бриф.** Собрать `brief.md` по новому шаблону (Combo / Topic id / Hook shape / Angle / Nouns / Considered & rejected + секция `## Slide structure`). Без `brief.md` к шагу 9 не переходим.
 9. **Картинки.** Для каждого слайда → собрать prompt (STYLE PREAMBLE + сцена из brief Visual variables) → отдать активному провайдеру → сохранить в `assets/slide-K.png`. Декор — отдельным проходом (см. «Декор»).
-10. **HTML overlay.** Только для слайдов с `text: true`. Если хотя бы один HTML есть — общий `styles.css` (палитра/шрифты + `.copy-panel` preset из активного `THEME.md`).
+10. **HTML overlay.** Только для слайдов с `text: true`. Если хотя бы один HTML есть — общий `styles.css` (CSS preset из активного `THEME.md` целиком — токены + overlay/wash + editorial typography классы).
 11. **`caption.md` + `meta.json`.** Meta включает `combo_id`, `topic`, `novelty_check`, `slide_roles` (см. схему выше) + per-slide `asset` параметры.
 12. **Финальный рендер в `inst/`.** Через `chrome-devtools` + `sips`. Для слайдов без HTML — `cp` из `assets/`. Скопировать caption.
 13. **Pre-publish checklist:**
     - **Brand-уровень** (из BRAND.md): голос, нет soft-лексики, нет запрещённых эмодзи, ≤12 слов в заголовке.
-    - **Theme-уровень** (из THEME.md): палитра соблюдена, шрифты подгружены, accent применён только внутри `.copy-panel`. **Контраст-чек:** `node scripts/contrast-check.mjs result/<combo_id>/<N>` → `ok: true`, ratio_fg ≥ 4.5, ratio_accent ≥ 3.0.
+    - **Theme-уровень** (из THEME.md): палитра соблюдена, шрифты подгружены, accent применён только согласно правилам активного THEME (внутри wash-зоны на 1–2 ключевых словах). **Контраст-чек:** `node scripts/contrast-check.mjs result/<combo_id>/<N>` → `ok: true`, ratio_fg ≥ 4.5 на всех слайдах; ratio_accent ≥ 3.0 на слайдах с `uses_accent: true`.
     - **Style-уровень** (из STYLE.md): нет текста на картинке от провайдера, recipe (камера/свет/grade/grain) применён.
     - **Brief-уровень** (из brief.md): сцены и композиция per-slide соблюдены.
     - **Novelty-уровень**: chosen `topic_id` уникален в `history.jsonl` своей комбинации.
@@ -562,6 +509,7 @@ negative, если есть>
 - Не пропускай `await document.fonts.ready` перед скриншотом.
 - Не клади в `inst/` ничего кроме финальных пронумерованных PNG и `caption.txt`.
 - Не оставляй HEX-коды в финальном image-промпте (словесные описания).
-- Не используй accent-цвет крупным заголовком на голом фоне (только внутри `.copy-panel`).
+- Не используй accent-цвет крупным заголовком на голом фоне без wash. Accent — только на 1-2 ключевых словах внутри wash-зоны согласно правилам активного THEME.
 - Не пропускай контраст-чек (`scripts/contrast-check.mjs`) перед сообщением «готово».
-- **Не нарушай Layer isolation** (см. `CLAUDE.md → Layer isolation (MUST)`). Brand-смыслы — только в `BRAND.md`; pure rendering recipe — только в `STYLE.md` (никаких subject/scene/motifs там); сцены и per-slide композиция — только в `brief.md`; HEX/шрифты/`contrast_strategy`/`text_scrim`/`.copy-panel` — только в `THEME.md`. `THEME.md`, `providers/*.md`, `SKILL.md`, `CLAUDE.md` brand-agnostic и style-agnostic. Исключение — `result/<combo_id>/<N>/brief.md`, `meta.json`, `caption.md`: они обязаны цитировать активный brand+style+hook (снимок, не источник истины).
+- Не хардкодь theme-specific имена классов (`.eyebrow`, `.headline em`, `.accent`, `.dot`, `.rule`, `.stat`, и т.п.) в шаблонах skill'а. Эти имена — собственность активной THEME. Skill читает их из CSS preset темы и из `per_slide_schema` (frontmatter THEME.md).
+- **Не нарушай Layer isolation** (см. `CLAUDE.md → Layer isolation (MUST)`). Brand-смыслы — только в `BRAND.md`; pure rendering recipe — только в `STYLE.md` (никаких subject/scene/motifs там); сцены и per-slide композиция — только в `brief.md`; HEX/шрифты/`contrast_strategy`/`text_scrim`/CSS preset/`per_slide_schema` — только в `THEME.md`. `THEME.md`, `providers/*.md`, `SKILL.md`, `CLAUDE.md` brand-agnostic и style-agnostic. Исключение — `result/<combo_id>/<N>/brief.md`, `meta.json`, `caption.md`: они обязаны цитировать активный brand+style+hook (снимок, не источник истины).

@@ -110,8 +110,12 @@ for (const slide of meta.slides) {
   const ratioAccent = ratio(bgL, accentL);
 
   const passFg = ratioFg >= 4.5;
-  const passAccent = ratioAccent >= 3.0; // accent only used at large display sizes
-  const slidePass = passFg && passAccent;
+  // accent-check applies ONLY when the slide actually uses an accent-colored
+  // <span class="accent"> in its headline. Skill writes slide.uses_accent
+  // accordingly. If absent or false — skip, pass_accent: null.
+  const usesAccent = slide.uses_accent === true;
+  const passAccent = usesAccent ? ratioAccent >= 3.0 : null;
+  const slidePass = passFg && (usesAccent ? passAccent : true);
   if (!slidePass) allPass = false;
 
   results.push({
@@ -121,6 +125,7 @@ for (const slide of meta.slides) {
     ratio_fg: +ratioFg.toFixed(2),
     ratio_accent: +ratioAccent.toFixed(2),
     pass_fg: passFg,
+    uses_accent: usesAccent,
     pass_accent: passAccent,
     pass: slidePass,
   });

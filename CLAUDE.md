@@ -50,7 +50,7 @@ carousel/
 ## Sources of truth
 
 - `brands/<brand>/BRAND.md` — authoritative for the brand layer (voice, allowed/forbidden lexicon, pillars, hooks, captions, hashtags).
-- `themes/<theme>/THEME.md` — authoritative for visual tokens (palette HEX, typography, Google Fonts URL, verbal color description for prompts, **`contrast_strategy` + `text_scrim`** frontmatter, `.copy-panel` CSS preset).
+- `themes/<theme>/THEME.md` — authoritative for visual tokens (palette HEX, typography, Google Fonts URL, verbal color description for prompts, **`contrast_strategy` + `text_scrim`** frontmatter, **`per_slide_schema`** frontmatter, CSS preset = tokens + overlay/wash + editorial typography classes).
 - `styles/<style>/STYLE.md` — authoritative for the **pure rendering recipe** (camera, light, color grade, grain) and the image provider. STYLE.md does **not** describe subject, scene, environment, or composition motifs — those live per-carousel in `result/<combo_id>/<N>/brief.md`.
 - `providers/<name>.md` — authoritative for how the skill calls a given provider.
 - `BRAND.md` / `STYLE.md` win over anything inferred from older outputs in `result/`.
@@ -64,12 +64,12 @@ carousel/
 | Файл | Содержит ТОЛЬКО | НЕ содержит |
 |---|---|---|
 | `brands/<id>/BRAND.md` | brand-смыслы: продукт, аудитория, voice, content pillars, hooks, captions, hashtags, slogan, allowed/forbidden лексикон | визуальные мотивы, preamble, per-slide шаблоны, HEX-цвета, имена шрифтов, инструкции провайдера |
-| `themes/<id>/THEME.md` | визуальные токены: HEX-палитра, Google Fonts, словесное описание цветов для image-промпта, `contrast_strategy` (`light-on-light` / `dark-on-dark` / `neutral`), `text_scrim` параметры, `.copy-panel` CSS preset | хуки, captions, hashtags, voice, visual preamble, per-slide шаблоны, описание сцены |
+| `themes/<id>/THEME.md` | визуальные токены: HEX-палитра, Google Fonts, словесное описание цветов для image-промпта, `contrast_strategy` (`light-on-light` / `dark-on-dark` / `neutral`), `text_scrim` параметры (`mode: wash`, peak/mid/fade, direction), `per_slide_schema` (frontmatter), CSS preset (tokens + overlay/wash + editorial typography классы) | хуки, captions, hashtags, voice, visual preamble, описание сцены |
 | `styles/<id>/STYLE.md` | **pure rendering recipe**: STYLE PREAMBLE (camera, light recipe, color grade, grain), NEGATIVE (только не-стиль: cartoon, illustration, watermark), default_provider | хуки, captions, hashtags, voice, HEX-коды, brand-копи, **subject rules / faceless / demographics**, **environment / scene description**, **composition motifs (Hooded / Lifter / etc.)**, per-slide шаблоны |
 | `result/<combo_id>/<N>/brief.md` | per-carousel composition: для каждого слайда — environment, subject crop, pose, mood (Visual variables) | пересмотр STYLE recipe или THEME tokens |
 | `providers/<name>.md` | runbook вызова провайдера. **Brand-agnostic и style-agnostic** | примеры с конкретным брендом/стилем кроме нейтральных ссылок |
-| `.claude/skills/carousel-generate/SKILL.md` | пайплайн. **Brand-agnostic и style-agnostic** — читает активные слои, не дублирует их | хардкод хуков, captions, hashtags, preamble, per-slide шаблонов |
-| `CLAUDE.md` | мета-описание архитектуры. **Brand-agnostic и style-agnostic** | конкретные хуки/captions/preamble (кроме иллюстративных примеров правил) |
+| `.claude/skills/carousel-generate/SKILL.md` | пайплайн. **Brand-agnostic, style-agnostic, theme-agnostic** — читает активные слои, не дублирует их | хардкод хуков, captions, hashtags, preamble, per-slide шаблонов, theme-specific CSS-классов (`.eyebrow`, `.accent`, `.dot`, `.rule`, `headline em`, …) |
+| `CLAUDE.md` | мета-описание архитектуры. **Brand-agnostic, style-agnostic, theme-agnostic** | конкретные хуки/captions/preamble, theme-specific CSS-классы (кроме иллюстративных примеров правил) |
 | `result/<combo_id>/<N>/brief.md`, `meta.json`, `caption.md` | снимок выбранной карусели — конкретный brand/style/hook/headlines обязаны быть здесь | определение источника истины (это снимок, не источник) |
 
 **MUST:**
@@ -77,8 +77,8 @@ carousel/
 1. Brand-смыслы (хуки, captions, hashtags, voice, slogan, лексикон) существуют **только** в `brands/<id>/BRAND.md`.
 2. **STYLE = pure rendering recipe**. `styles/<id>/STYLE.md` описывает только **как рендерить** изображение: camera type, lighting recipe, color grade, film grain, output format. Никаких subject rules (faceless / portrait / demographics), никакого environment (gym / office / paper-toned scene), никаких composition motifs (Hooded / Lifter / Doorway). NEGATIVE блок — только не-стиль (cartoon, illustration, watermark, 3D render); subject anti-terms сюда не идут.
 3. **Композиция и сцена per-slide живут в `result/<combo_id>/<N>/brief.md → Slide K → Visual variables`**. Это единственный источник «что в кадре» — environment, subject crop, pose, mood. Никакая часть STYLE.md не должна описывать конкретные сцены или мотивы.
-4. HEX-цвета, Google Fonts URL, `contrast_strategy`, `text_scrim`, `.copy-panel` CSS preset существуют **только** в `themes/<id>/THEME.md`. В `STYLE.md` цвет описывается словами; `BRAND.md` не трогает визуальные токены.
-5. `providers/*.md`, `SKILL.md`, `CLAUDE.md` обязаны оставаться **brand-agnostic и style-agnostic** — упоминать активный слой только через ссылку.
+4. HEX-цвета, Google Fonts URL, `contrast_strategy`, `text_scrim` (`mode: wash`, peak/mid/fade, direction), `per_slide_schema`, CSS preset (включая overlay/wash + editorial typography классы — `.eyebrow`, `.headline em`, `.accent`, `.dot`, `.rule`, `.sub`, `.stat`, `.meta`, `.brand` и т.п.) существуют **только** в `themes/<id>/THEME.md`. В `STYLE.md` цвет описывается словами; `BRAND.md` не трогает визуальные токены; `SKILL.md` и `CLAUDE.md` не перечисляют эти CSS-классы как директивы.
+5. `providers/*.md`, `SKILL.md`, `CLAUDE.md` обязаны оставаться **brand-agnostic, style-agnostic и theme-agnostic** — упоминать активный слой только через ссылку. Theme-specific vocabulary (eyebrow / headline em / accent / dot / rule / layout / uses_accent / stat / meta) принадлежит THEME, не skill'у.
 6. Хочешь поменять рендеринг (камеру/свет/grade) — правь `STYLE.md`. Хочешь поменять конкретную сцену слайда — правь `brief.md`. Хочешь поменять голос/хуки — только `BRAND.md`. Хочешь поменять палитру/шрифты/contrast strategy — только `THEME.md`.
 7. **Subject layer (кто в кадре) пока не введён.** Когда будет — будет отдельный слой; до тех пор STYLE и BRAND его не описывают.
 
@@ -87,7 +87,8 @@ carousel/
 - Хук `"Earn your screen"`, slogan или конкретный hashtag (`#TimeSquats`) захардкожен в `SKILL.md`, `providers/recraft.md`, `STYLE.md` или `THEME.md`. Это brand → только в `BRAND.md`.
 - В `STYLE.md` зашит `FACELESS RULE`, описание `brutalist underground gym` / `cracked concrete`, или per-slide мотив (Hooded / Lifter / Doorway / Counter / Glow). Это **subject + scene + composition**, а не recipe → удалить из STYLE; сцена пишется в `brief.md`, subject — отдельный (пока не введённый) слой.
 - HEX-код `#B0E821` или `font-family: "Changa One"` прописан в `STYLE.md` или `BRAND.md`. Это theme → только в `THEME.md`.
-- `.copy-panel`, `contrast_strategy` или WCAG-checker логика прописана в `STYLE.md` или `BRAND.md`. Это theme → только в `THEME.md` (CSS preset + frontmatter).
+- `contrast_strategy`, `text_scrim`, `per_slide_schema` или WCAG-checker логика прописана в `STYLE.md` или `BRAND.md`. Это theme → только в `THEME.md` (CSS preset + frontmatter).
+- Editorial-vocabulary (`.eyebrow`, `.headline em`, `.accent` span, `.dot`, `.rule`, layout enum, `uses_accent` флаг) перечислен в `SKILL.md` / `CLAUDE.md` как директива пайплайну. Это theme-уровень → имена живут в активной `THEME.md → per_slide_schema` + CSS preset; skill читает их оттуда, не диктует.
 
 **Исключения:**
 
